@@ -19,6 +19,8 @@ local function split(str, chars)
     return result
 end
 
+local unpack = jit and unpack or table.unpack
+
 local function list_to_hash(list)
     local result = {}
     for i=1,#list do
@@ -207,7 +209,7 @@ function c.pretty_print_ongoing()
 end
 
 function c.get_ongoing()
-    return {[memory_limit+1]=active_chord, table.unpack(memory)}
+    return {[memory_limit+1]=active_chord, unpack(memory)}
 end
 
 function c.read_config(str,pr)
