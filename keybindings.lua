@@ -39,7 +39,7 @@ local hidden_k = {
     alt="ralt|lalt",
     gui="rgui|lgui",
 }
---local subset_of = {}
+local subset_of = {}
 local hit_progression = false
 local memory_limit = 1
 
@@ -54,11 +54,11 @@ local k_metatable = {
                 local t = split(chunk,";")
                 if #t==1 then
                     if active_chord>=c.chord(t[1]) then
-                    --    for _,v in pairs(subset_of[key]) do
-                    --        if c.k[v] then
-                    --            return false
-                    --        end
-                    --    end
+                        for _,v in pairs(subset_of[key]) do
+                            if c.k[v] then
+                                return false
+                            end
+                        end
                         return true
                     end
                 else
@@ -91,20 +91,20 @@ local k_metatable = {
             m = math.max(m,#split(v,";"))
         end
         memory_limit = m
-        --for k, v in pairs(hidden_k) do
-        --    subset_of[k] = {}
-        --    for kp, vp in pairs(hidden_k) do
-        --        local is_subset = false
-        --        for _, chunk in pairs(split(vp:gsub("%s",""),"|")) do
-        --            if c.chord(chunk)>c.chord(v) or c.chord(chunk)>c.chord(k) then
-        --                is_subset = true
-        --            end
-        --        end
-        --        if is_subset then
-        --            table.insert(subset_of[k],kp)
-        --        end
-        --    end
-        --end
+        for k, v in pairs(hidden_k) do
+            subset_of[k] = {}
+            for kp, vp in pairs(hidden_k) do
+                local is_subset = false
+                for _, chunk in pairs(split(vp:gsub("%s",""),"|")) do
+                    if c.chord(chunk)>c.chord(v) or c.chord(chunk)>c.chord(k) then
+                        is_subset = true
+                    end
+                end
+                if is_subset then
+                    table.insert(subset_of[k],kp)
+                end
+            end
+        end
     end
 }
 
