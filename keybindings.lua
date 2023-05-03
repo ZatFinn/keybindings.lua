@@ -234,7 +234,7 @@ function c.create_config(write)
     if write then
         local fh, e = love.filesystem.newFile(type(write)=="string" and write or "keys.conf","w")
         if e then
-            error(e)
+            warning(e)
         else
             fh:write(result)
             fh:close()
@@ -252,7 +252,7 @@ function c.init(opts)
     if opts.file then
         local fh, e = love.filesystem.newFile(opts.file,"r")
         if e then
-            error(e)
+            warning(e)
         else
             c.read_config(fh:read(),opts.protected)
             fh:close()
