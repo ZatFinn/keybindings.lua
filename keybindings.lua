@@ -211,7 +211,7 @@ function c.get_ongoing()
 end
 
 function c.read_config(str,pr)
-    local pr_hash = list_to_hash(pr)
+    local pr_hash = list_to_hash(pr or {})
     for line in str:gmatch("[^\n]+") do
         local s = split(line,":")
         if line:sub(1,1)~="#" and #s>1 then
