@@ -245,8 +245,10 @@ function c.create_config(write)
 end
 
 function c.init(opts)
-    for k,v in pairs(opts.default) do
-        c.register(k,v)
+    if opts.default then
+        for k,v in pairs(opts.default) do
+            c.register(k,v)
+        end
     end
     if opts.file then
         local fh, e = love.filesystem.newFile(opts.file,"r")
