@@ -245,12 +245,15 @@ function c.create_config(write)
 end
 
 function c.init(opts)
+    for k,v in pairs(opts.default) do
+        c.register(k,v)
+    end
     if opts.file then
         local fh, e = love.filesystem.newFile(opts.file,"r")
         if e then
             error(e)
         else
-            c.read_config(fh:read())
+            c.read_config(fh:read(),opts.protected)
             fh:close()
         end
     end
