@@ -213,8 +213,8 @@ end
 function c.read_config(str,pr)
     local pr_hash = list_to_hash(pr)
     for line in str:gmatch("[^\n]+") do
-        if line:sub(1,1)~="#" then
-            local s = split(line,":")
+        local s = split(line,":")
+        if line:sub(1,1)~="#" and #s>1 then
             if not pr_hash[s[1]] then
                 c.register(s[1],s[2])
             end
