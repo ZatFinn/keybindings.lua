@@ -228,7 +228,7 @@ function c.create_config(write)
         "# it was generated automatically",
     }
     for k in pairs(hidden_k) do
-        table.insert(lines,table.concat({k,hidden_k[k]}, ":"))
+        table.insert(lines,table.concat({k,hidden_k[k]}, ":\t"))
     end
     local result = table.concat(lines,"\n")
     if write then
