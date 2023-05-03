@@ -41,6 +41,13 @@ local hidden_k = {
 }
 local hit_progression = false
 local memory_limit = 1
+-- Please put these in order of priority
+local mod_keys = {
+    "ralt", "lalt",
+    "rshift", "lshift",
+    "rctrl", "lctrl",
+    "rgui", "lgui"
+}
 
 local k_metatable = {
     __index=function(_, key)
@@ -149,15 +156,7 @@ local chord_metatable = {
     end,
     __tostring=function(chord)
         local result = {}
-        -- prioritized keys
-        -- (in order)
-        local priority = {
-            "lalt",   "ralt",
-            "lshift", "rshift",
-            "lctrl",  "rctrl",
-            "lgui",   "rgui"
-        }
-        for _,k in ipairs(priority) do
+        for _,k in ipairs(mod_keys) do
             if chord[k] then
                 table.insert(result, k)
             end
@@ -167,7 +166,7 @@ local chord_metatable = {
                 and not hidden_k[k]
                 and not (k:sub(1,1)=="-" and #k>1)
                 then
-                if not list_to_hash(priority)[k] then
+                if not list_to_hash(mod_keys)[k] then
                     table.insert(result, k)
                 end
             end
@@ -283,6 +282,12 @@ function c.init(opts)
                 table.remove(memory, 1)
             end
             active_chord = c.chord("")
+            -- keep mod keys even after chord ends; after all, no sane person
+            -- would create a progression that has a chord without a mod key
+            -- going right after a chord that has one?
+            for _,v in pairs(mod_keys) do
+                active_chord[v] = love.keyboard.isDown(v)
+            end
         end
         if hit_progression then
             hit_progression = false
