@@ -209,7 +209,7 @@ function c.pretty_print_ongoing()
 end
 
 function c.get_ongoing()
-    return {[memory_limit+1]=active_chord, unpack(memory)}
+    return {[#memory+1]=active_chord, unpack(memory)}
 end
 
 function c.read_config(str,pr)
