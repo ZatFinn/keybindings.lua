@@ -207,7 +207,7 @@ function c.pretty_print_ongoing()
 end
 
 function c.get_ongoing()
-    return memory
+    return {[memory_limit+1]=active_chord, table.unpack(memory)}
 end
 
 function c.read_config(str,pr)
