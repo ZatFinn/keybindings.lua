@@ -204,7 +204,6 @@ function c.pretty_print_ongoing()
     for i=1,#memory do
         strings[i] = tostring(memory[i])
     end
-    table.insert(strings,tostring(active_chord))
     return table.concat(strings,"; ")
 end
 
