@@ -260,6 +260,9 @@ function c.init(opts)
             fh:close()
         end
     end
+    if opts.mod_keys then
+        mod_keys = opts.mod_keys
+    end
     if not old_keypressed then
         old_keypressed = love.keypressed or function() end
     end
