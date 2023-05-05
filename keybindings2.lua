@@ -244,7 +244,26 @@ function keybindings.dispatch_actions(key, scancode, isrepeat, _actionpressed)
             end
             if action_emitted then
                 break -- only emit action once if it has several bindings
-            end  
+            end
+        end
+    end
+end
+
+function keybindings.is_action_down(action)
+    local binds = action_bindings[action]
+    if not binds then
+        print(action, "isn't a valid action")
+    end
+    for _, b in ipairs(binds) do
+        local action_tbl = parse_bind_str(b)
+        if not action_tbl then
+            print("couldn't parse", b)
+            return
+        end
+        for _, testkey in ipairs(action_tbl.keys) do
+            if love.keyboard.isDown(testkey) and check_mods(action_tbl.mods) then
+                return true
+            end
         end
     end
 end
