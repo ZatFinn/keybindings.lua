@@ -1,4 +1,4 @@
-local config = {
+keybindings_config = {
     mods = {
         alt = {'lalt', 'ralt'},
         ctrl =	{'rctrl', 'lctrl'},
@@ -217,8 +217,8 @@ end
 
 local old_keypressed, old_keyreleased
 function keybindings.init()
-    action_bindings = deepcopy_no_api(config.actions)
-    mods_list = deepcopy_no_api(config.mods)
+    action_bindings = deepcopy_no_api(keybindings_config.actions)
+    mods_list = deepcopy_no_api(keybindings_config.mods)
     if not old_keypressed then
         old_keypressed = love.keypressed or function() end
     end
