@@ -215,16 +215,9 @@ local function parse_bind_str(action)
     return action_table
 end
 
-local old_keypressed, old_keyreleased
-function keybindings.init()
+function keybindings.load_global_config()
     action_bindings = deepcopy_no_api(keybindings_config.actions)
     mods_list = deepcopy_no_api(keybindings_config.mods)
-    if not old_keypressed then
-        old_keypressed = love.keypressed or function() end
-    end
-    if not old_keyreleased then
-        old_keyreleased = love.keyreleased or function() end
-    end
 end
 
 function keybindings.dispatch_actions(key, scancode, isrepeat, _actionpressed)
