@@ -19,7 +19,7 @@ local function split(str, chars)
     return result
 end
 
-local unpack = jit and unpack or table.unpack
+local unpack = unpack or table.unpack
 
 local function list_to_hash(list)
     local result = {}
